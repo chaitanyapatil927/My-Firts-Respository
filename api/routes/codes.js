@@ -30,7 +30,7 @@ router.get('/export',(req, res, next) =>{
         coolnew = doc;
         console.log(coolnew);
         res.status(200).json(doc);
-        
+        //checking
         //var rawFile = fs.coolnew//dir of your json file as param
         //var raw = JSON.parse(coolnew)
         //console.log(raw);
