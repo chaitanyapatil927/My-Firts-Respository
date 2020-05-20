@@ -1,13 +1,54 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+var json2xls = require('json2xls');
+const fs = require("fs");//npm install fs
 
 const Code = require('../models/code');
 //hah
 router.get('/',(req, res, next) =>{
-    res.status(200).json({
-        message : 'It worksee get'
+    Code.find()
+    .exec()
+    .then(doc =>{ 
+        console.log(doc);
+        res.status(200).json(doc);
+    })
+    .catch(err =>{
+        console.log(error);
+        res.status(500).json(
+            errror = err
+        );
     });
+
+    
+});
+
+router.get('/export',(req, res, next) =>{
+    Code.find()
+    .exec()
+    .then(doc =>{ 
+        coolnew = doc;
+        console.log(coolnew);
+        res.status(200).json(doc);
+        
+        //var rawFile = fs.coolnew//dir of your json file as param
+        //var raw = JSON.parse(coolnew)
+        //console.log(raw);
+        //res.status(200).json(raw);
+        var xls = json2xls(coolnew,{
+            fields : {_id:'string',title:'string',body:'string',code:'string',author:'string'}
+        });
+        fs.writeFileSync('data.xlsx', xls, 'binary');
+        res.download('data.xlsx');
+    })
+    .catch(err =>{
+        console.log(error);
+        res.status(500).json(
+            errror = err
+        );
+    });
+    
+    
 });
 
 router.post('/',(req, res, next) => {
