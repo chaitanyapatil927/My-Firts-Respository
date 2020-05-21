@@ -105,3 +105,7 @@ dist
 
 #Ignore all xlsx files
 *.xlsx
+
+
+#Ignore json data
+out.json
