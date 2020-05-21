@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var json2xls = require('json2xls');
 const fs = require("fs");//npm install fs
+var exceltojson = require("xlsx-to-json-lc");
 
 const Code = require('../models/code');
 //hah
@@ -75,6 +76,38 @@ router.post('/',(req, res, next) => {
             error : err
         });
     }) 
+
+});
+
+router.post('/import',(req, res, next) =>{
+    exceltojson({
+        input: "data.xlsx",
+        output: "out.json"
+        
+    },function(err, result) {
+        if(err) {
+          console.error(err);
+        } else {
+          console.log(result);
+          //result will contain the overted json data
+        }
+        Code.collection.insert(result,function(err,docs){
+            if (err){
+                return console.error(err),
+                res.status(400).json({
+                    message: "error in uploading excel"
+                })
+            }else{
+                console.log("multiple dociments inserted to collection");
+                res.status(200).json({
+                    message: "multiple documents inserted to collection",
+                    body : result
+                })
+         }
+        });
+    });
+    
+    
 
 });
 
