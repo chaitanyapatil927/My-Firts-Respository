@@ -112,4 +112,4 @@ out.json
 
 #ignore uploads
 
-.uploads/
+uploads
