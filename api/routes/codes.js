@@ -5,6 +5,11 @@ var json2xls = require('json2xls');
 const fs = require("fs");//npm install fs
 var exceltojson = require("xlsx-to-json-lc");
 const checkAuth = require('../middleware/check-auth');
+const multer = require('multer');
+const upload = multer({dest:'uploads/'});
+
+
+
 
 const Code = require('../models/code');
 //hah
@@ -53,14 +58,16 @@ router.get('/export',checkAuth,(req, res, next) =>{
     
 });
 
-router.post('/',checkAuth,(req, res, next) => {
+router.post('/',upload.single('codeImage'),(req, res, next) => {
     
+    console.log(req.file);
     const Blog = new Code({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         body: req.body.body,
         code: req.body.code,
-        author: req.body.author
+        author: req.body.author,
+        codeImage: req.file.path
     });
     Blog
     .save()
