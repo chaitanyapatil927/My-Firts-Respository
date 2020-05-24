@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var json2xls = require('json2xls');
 const fs = require("fs");//npm install fs
 var exceltojson = require("xlsx-to-json-lc");
+const checkAuth = require('../middleware/check-auth');
 
 const Code = require('../models/code');
 //hah
@@ -24,7 +25,7 @@ router.get('/',(req, res, next) =>{
     
 });
 
-router.get('/export',(req, res, next) =>{
+router.get('/export',checkAuth,(req, res, next) =>{
     Code.find()
     .exec()
     .then(doc =>{ 
@@ -52,7 +53,7 @@ router.get('/export',(req, res, next) =>{
     
 });
 
-router.post('/',(req, res, next) => {
+router.post('/',checkAuth,(req, res, next) => {
     
     const Blog = new Code({
         _id: new mongoose.Types.ObjectId(),

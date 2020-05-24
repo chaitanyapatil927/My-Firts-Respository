@@ -5,7 +5,7 @@ const codeSchema = mongoose.Schema({
     title: String,
     body: String,
     code: String,
-    author: String
+    author: {type :String, required: true}
 });
 
 

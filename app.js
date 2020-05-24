@@ -16,6 +16,7 @@ mongoose.Promise = global.Promise;
 
 
 const codeRoutes = require('./api/routes/codes');
+const userRoutes = require('./api/routes/user');
 
 
 app.use(morgan('dev'));
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/codes', codeRoutes);
+app.use('/user', userRoutes);
 
 
 
