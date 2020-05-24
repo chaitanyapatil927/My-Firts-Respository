@@ -109,3 +109,7 @@ dist
 
 #Ignore json data
 out.json
+
+#ignore uploads
+
+.uploads/
